@@ -11,26 +11,41 @@ public class App
 
         Console con = System.console();
         String input = "";
-
+        double $last = 0.0;
+        double number1 = 0.0;
+        double number2 = 0.0;
+        
         while (!input.equals("exit")) {
-            input = con.readLine(">");
-            Scanner scan = new Scanner(input);
-            int number1 = scan.nextInt();
-            char operator = scan.next().charAt(0);
-            int number2 = scan.nextInt();
+            input = con.readLine("> ");
+            String[] inputArray = input.split(" ");
 
-            if (operator == "+") {
-                System.out.println(number1+number2);
-            } else if (operator == "-") {
-                System.out.println(number1-number2);
-            } else if (operator == "/") {
-                System.out.println(number1/number2);
-            } else if (operator == "*") {
-                System.out.println(number1*number2);
+            if (inputArray[0].equals("$last")) {
+                number1 = $last;
             } else {
-                System.out.println("Input not recognised :( Please key in number<space>operator<space>number.");
+                number1 = Double.parseDouble(inputArray[0]);
             }
 
+            if (inputArray[2].equals("$last")) {
+                number2 = $last;
+            } else {
+                number2 = Double.parseDouble(inputArray[2]);
+            }
+
+            if (input.contains("+")) {
+                $last = number1 + number2;
+                System.out.println($last);
+            } else if (input.contains("-")) {
+                $last = number1 - number2;
+                System.out.println($last);
+            } else if (input.contains("/")) {
+                $last = number1 / number2;
+                System.out.println($last);
+            } else if (input.contains("*")) {
+                $last = number1 * number2;
+                System.out.println($last);
+            // } else {
+            //     System.out.println("Input not recognised :( Please key in number<space>operator<space>number.");
+            }
         }
         System.out.println("Bye bye :)");
     }
