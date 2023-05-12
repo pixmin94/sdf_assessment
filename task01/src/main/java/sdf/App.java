@@ -19,17 +19,21 @@ public class App
             input = con.readLine("> ");
             String[] inputArray = input.split(" ");
 
-            if (inputArray[0].equals("$last")) {
-                number1 = $last;
-            } else {
-                number1 = Double.parseDouble(inputArray[0]);
-            }
-
-            if (inputArray[2].equals("$last")) {
-                number2 = $last;
-            } else {
-                number2 = Double.parseDouble(inputArray[2]);
-            }
+            try {
+                if (inputArray[0].equals("$last")) {
+                    number1 = $last;
+                } else {
+                    number1 = Double.parseDouble(inputArray[0]);
+                }
+    
+                if (inputArray[2].equals("$last")) {
+                    number2 = $last;
+                } else {
+                    number2 = Double.parseDouble(inputArray[2]);
+                }
+            } catch (Exception e) {
+                break;
+            }  
 
             if (input.contains("+")) {
                 $last = number1 + number2;
