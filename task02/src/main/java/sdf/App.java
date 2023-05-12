@@ -33,7 +33,7 @@ public class App
             .skip(1)
             .collect(Collectors.toList());
         }
-        pathList.forEach(System.out::println);
+        // pathList.forEach(System.out::println);
 
         for (Path path : pathList) {
             File filename = new File(path.toString());
@@ -59,14 +59,19 @@ public class App
 
             // Map<String, Map<String, Value> finalMap = new HashMap<String, HashMap<String,Value>>();
             for (Map.Entry<String, ArrayList<String>> set : wordPairs.entrySet()) {
-                Map<String, Integer> innerMap = new HashMap<>();
-                for (String s : set.getValue()) {
-                    if (innerMap.containsKey(s))
-                        // change to probability instead of count
-                        innerMap.put(s, innerMap.get(s) + 1);
-                    else
-                        innerMap.put(s, 1);
+                Map<String, Double> innerMap = new HashMap<>();
+                for (String word : set.getValue()) {
+                    Double count = innerMap.getOrDefault(word, 0.0);
+                    innerMap.put(word, count + 1);
                 }
+                Double totalCount = Double.valueOf(set.getValue().size());
+                for (Map.Entry<String, Double> item : innerMap.entrySet()) {
+                    String word = item.getKey();
+                    double count = item.getValue();
+                    double percentage = (count / totalCount);
+                    innerMap.put(word, percentage);
+                }
+
                 System.out.println(set.getKey());
                 System.out.println("   " + innerMap);
             }
